@@ -1,6 +1,8 @@
 package anime.api.controllers;
 
 import anime.api.domain.Anime;
+import anime.api.useCases.anime.ListAnimeUseCase;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,11 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("anime")
+@RequestMapping("animes")
+@AllArgsConstructor
 public class AnimeController {
 
-    @GetMapping(path = "/list")
+    private final ListAnimeUseCase listAnimeUseCase;
+
+    @GetMapping
     public List<Anime> listAnime(){
-        return List.of(new Anime("Naruto"), new Anime("Jujutsu"));
+        return this.listAnimeUseCase.execute();
     }
 }
