@@ -40,6 +40,7 @@ public class AnimeController {
 
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> deleteAnime(@PathVariable String id) {
+        this.deleteAnimeUseCase.execute(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
