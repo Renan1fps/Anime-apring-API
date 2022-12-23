@@ -1,17 +1,19 @@
 package anime.api.useCases.anime;
 
-import anime.api.MockAnimes;
 import anime.api.domain.Anime;
+import anime.api.repository.AnimeRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
 @Service
+@AllArgsConstructor
 public class CreateAnimeUseCase {
 
-    public Anime execute(Anime anime){
-        anime.setId(UUID.randomUUID().toString());
-        MockAnimes.animes.add(anime);
-        return  anime;
+    private AnimeRepository animeRepository;
+
+    public Anime execute(Anime anime) {
+        return this.animeRepository.save(anime);
     }
 }

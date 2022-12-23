@@ -1,20 +1,23 @@
 package anime.api.useCases.anime;
 
-import anime.api.MockAnimes;
 import anime.api.domain.Anime;
-import org.springframework.http.HttpStatus;
+import anime.api.exception.BadRequestException;
+import anime.api.repository.AnimeRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 @Service
+@AllArgsConstructor
 public class FindAnimeByIdUseCase {
 
-    public Anime execute(String id){
-        return MockAnimes.animes
-                .stream()
-                .filter(anime -> anime.getId().equals(id))
-                .findFirst()
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Anime not found"));
-    }
+    private AnimeRepository animeRepository;
 
+    public Anime execute(String id) {
+        Anime existsAnime = this.animeRepository.findById(id).orElse(null);
+
+        if (existsAnime == null) {
+            throw new BadRequestException("Anime not found");
+        }
+        return existsAnime;
+    }
 }
