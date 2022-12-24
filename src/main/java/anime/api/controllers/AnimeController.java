@@ -6,17 +6,20 @@ import anime.api.useCases.anime.DeleteAnimeUseCase;
 import anime.api.useCases.anime.FindAnimeByIdUseCase;
 import anime.api.useCases.anime.ListAnimeUseCase;
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
 @RestController
 @RequestMapping("animes")
 @AllArgsConstructor
+@Log4j2()
 public class AnimeController {
 
     private final ListAnimeUseCase listAnimeUseCase;
@@ -36,7 +39,9 @@ public class AnimeController {
 
     @Transactional(rollbackFor = Exception.class) // rollback para todos os tipos de erros
     @PostMapping()
-    public ResponseEntity<Anime> createAnime(@RequestBody Anime anime) {
+    public ResponseEntity<Anime> createAnime(@RequestBody  @Valid Anime anime) {
+        log.info("Teste de log");
+
         return new ResponseEntity<>(this.createAnimeUseCase.execute(anime), HttpStatus.CREATED);
     }
 
