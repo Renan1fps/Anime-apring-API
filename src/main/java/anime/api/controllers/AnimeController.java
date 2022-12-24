@@ -8,6 +8,7 @@ import anime.api.useCases.anime.ListAnimeUseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,6 +34,7 @@ public class AnimeController {
         return new ResponseEntity<>(this.findAnimeByIdUseCase.execute(id), HttpStatus.OK);
     }
 
+    @Transactional(rollbackFor = Exception.class) // rollback para todos os tipos de erros
     @PostMapping()
     public ResponseEntity<Anime> createAnime(@RequestBody Anime anime) {
         return new ResponseEntity<>(this.createAnimeUseCase.execute(anime), HttpStatus.CREATED);
