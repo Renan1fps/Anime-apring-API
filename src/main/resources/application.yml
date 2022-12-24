@@ -1,6 +1,7 @@
 server:
   error:
     include-stacktrace: ON_PARAM
+  port: 3025
 
 spring:
   datasource:
