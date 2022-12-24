@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 
 @Data
 @AllArgsConstructor
@@ -24,7 +25,9 @@ public class Anime {
     )
     @Column(name = "id", updatable = false, nullable = false)
     private String id;
+    @NotEmpty(message = "Name is required")
     private String name;
+
 
 
 }
