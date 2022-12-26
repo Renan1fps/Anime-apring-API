@@ -5,7 +5,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/anime?useSSL=false
+    url: jdbc:postgresql://localhost:5432/teste?useSSL=false
     username: root
     password: docker
   jpa:
