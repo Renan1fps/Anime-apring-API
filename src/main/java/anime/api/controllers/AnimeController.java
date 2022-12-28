@@ -40,8 +40,6 @@ public class AnimeController {
     @Transactional(rollbackFor = Exception.class) // rollback para todos os tipos de erros
     @PostMapping()
     public ResponseEntity<Anime> createAnime(@RequestBody  @Valid Anime anime) {
-        log.info("Teste de log");
-
         return new ResponseEntity<>(this.createAnimeUseCase.execute(anime), HttpStatus.CREATED);
     }
 
